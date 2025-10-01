@@ -10,6 +10,7 @@
   --font-size-label: 14px;
   --font-size-input: 14px;
   --font-size-header: 22px;
+  --font-size-desc: 13px;
   --color-background: #f6f7fa;
   --color-card-bg: #ffffff;
   --color-card-border: #dbdfe7;
@@ -44,6 +45,14 @@ h1 {
   font-size: var(--font-size-header);
   color: var(--color-header);
   margin-bottom: 24px;
+}
+p.description {
+  text-align: left;
+  font-size: var(--font-size-desc);
+  color: #777;
+  font-style: italic;
+  margin: 4px 0 12px 0;
+  line-height: 1.4;
 }
 label {
   display: block;
@@ -112,6 +121,10 @@ canvas {
   </select>
 
   <label for="signaturePad">Signature (Required)</label>
+  <p class="description">
+    🔒 <em>Disclaimer: Your signature will be used strictly for work order purposes only and will not be shared, stored, or used for any other reason.</em>
+  </p>
+
   <canvas id="signaturePad" width="400" height="150"></canvas>
   <button type="button" class="btn-secondary" onclick="clearSignature()">Clear Signature</button>
   <input type="hidden" id="signature" name="signature" required>
@@ -131,13 +144,11 @@ canvas {
   document.getElementById('attendanceForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // enforce required signature
     if (signaturePad.isEmpty()) {
       alert("Please provide your signature before submitting.");
       return;
     }
 
-    // Force consistent PNG export (works same on PC & mobile)
     document.getElementById("signature").value = signaturePad.toDataURL("image/png");
 
     const formData = {
@@ -179,5 +190,3 @@ canvas {
 
 </body>
 </html>
-
-
