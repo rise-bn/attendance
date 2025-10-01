@@ -79,7 +79,9 @@ button[type="submit"], .btn-secondary {
   cursor: pointer;
   margin-top: 8px;
 }
-button[type="submit"]:hover, .btn-secondary:hover { background-color: #e05343; }
+button[type="submit"]:hover, .btn-secondary:hover {
+  background-color: #e05343;
+}
 canvas {
   border: 1px solid var(--color-input-border);
   border-radius: var(--radius);
@@ -126,7 +128,7 @@ canvas {
     signaturePad.clear();
   }
 
-  document.getElementById('attendanceForm').addEventListener('submit', async function(e){
+  document.getElementById('attendanceForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
     // enforce required signature
@@ -135,7 +137,8 @@ canvas {
       return;
     }
 
-    document.getElementById("signature").value = signaturePad.toDataURL();
+    // Force consistent PNG export (works same on PC & mobile)
+    document.getElementById("signature").value = signaturePad.toDataURL("image/png");
 
     const formData = {
       name: document.getElementById('name').value,
@@ -176,5 +179,3 @@ canvas {
 
 </body>
 </html>
-
-
